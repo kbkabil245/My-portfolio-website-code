@@ -522,7 +522,7 @@ section h2 i {
     border-left-width: 8px;
 }
 .timeline-card h3 { color: #ffffff; font-size: 20px; }
-.timeline-card p { color: #94a3b8; margin-top: 5px; font-size: 16px; }
+.timeline-card p { color: #94a3b8; margin-top: 5px; font-size: 16px; font: 16px; text-align: left;}
 .timeline-card h4 { color: #f59e0b; margin-top: 10px; font-size: 15px; font-weight: 600; }
 .timeline-card ul { margin-top: 12px; padding-left: 20px; color: #94a3b8; }
 .timeline-card ul li { margin-bottom: 20px; font-size: 15px; line-height: 1.5; }
