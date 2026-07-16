@@ -65,12 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const elementTop = element.getBoundingClientRect().top;
             const elementBottom = element.getBoundingClientRect().bottom;
 
-
             if (elementTop < windowHeight - 60 && elementBottom > 60) {
                 element.classList.add("active");
-            }
-
-            else {
+            } else {
                 element.classList.remove("active");
             }
         });
@@ -178,10 +175,11 @@ document.getElementById('run-sim-btn').addEventListener('click', function() {
     printNextLog();
 });
 
-const sr = scrollReveal({
-    distance: '80px', 
-    duration: 5000, 
-    delay: 300,
-    reset: true
+const aboutBtn = document.getElementById('aboutBtn');
+if (aboutBtn) {
+aboutBtn.addEventListener('mousemove', (e) => {
+const rect = aboutBtn.getBoundingClientRect();
+aboutBtn.style.setProperty('--mouseX', (e.clientX - rect.left) + 'px');
+aboutBtn.style.setProperty('--mouseY', (e.clientY - rect.top) + 'px');
 });
-sr.reveal('.reveal', { origin: 'top' });
+}

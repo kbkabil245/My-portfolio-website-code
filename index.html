@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>K.B.Kabilan | Portfolio</title>
@@ -23,27 +24,78 @@
 
             <nav>
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#education">Education</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#education" class="nav-link">Education</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#experience" class="nav-link">Experience</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <span class="nav-indicator" id="navIndicator"></span>
                 </ul>
             </nav>
+            <script>
+
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navIndicator = document.getElementById('navIndicator');
+
+            function moveNavIndicator(activeLink) {
+                if (!navIndicator || !activeLink) return;
+                navIndicator.style.left = activeLink.offsetLeft + 'px';
+                navIndicator.style.width = activeLink.offsetWidth + 'px';
+                navIndicator.classList.add('visible');
+            }
+
+            function runScrollSpy() {
+                // Default to the first section (Home) instead of an empty
+                // string - an empty string is a substring of every link's
+                // href, so it used to match ALL links and the indicator
+                // always ended up on the last one (Contact).
+                let current = sections.length ? sections[0].getAttribute('id') : "";
+                const scrollPosition = window.scrollY || window.pageYOffset;
+                const reachedBottom = (window.innerHeight + scrollPosition) >= (document.documentElement.scrollHeight - 4);
+
+                if (reachedBottom && sections.length) {
+                    current = sections[sections.length - 1].getAttribute('id');
+                } else {
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop;
+                        if (scrollPosition >= sectionTop - 150) {
+                            current = section.getAttribute('id');
+                        }
+                    });
+                }
+
+                let activeLink = null;
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    // Exact match instead of .includes() - substring matching
+                    // was part of the same bug above.
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                        activeLink = link;
+                    }
+                });
+
+                moveNavIndicator(activeLink);
+            }
+
+            window.addEventListener('scroll', runScrollSpy);
+            window.addEventListener('resize', () => {
+                moveNavIndicator(document.querySelector('.nav-link.active'));
+            });
+            window.addEventListener('load', runScrollSpy);
+         </script>
         </header>
-    <body>
-            <script src"https://unpkg.com/scrollreveal"></script>
-            <script src="script.js"></script>
-    </body>
+
         <!-- Home Section -->
         <section id="home" class="hero">
             <div class="hero-content">
                 <h2>Hi There,<br>I'm <span class="highlight">K.B.KABILAN</span></h2>
                 <p class="typing-text">I am into </p>
-                <a href="#about" class="reveal btn">More About Me <i class="fas fa-arrow-down" style="margin-left: 5px;"></i></a>
-                <div class="social-links">
+                <a href="#about" class="reveal-down btn glow-btn" id="aboutBtn"> <span class="inner-glow"></span> <span>More About Me <i class="fas fa-arrow-down"></i></span> </a>
+                <div class="social-links reveal reveal-side delay-2">
                     <a href="https://linkedin.com/in/kabilan-k-b-802489255" target="_blank"><i class="fab fa-linkedin"></i></a>
                     <a href="https://github.com/kbkabil245" target="_blank"><i class="fab fa-github"></i></a>
                 </div>
@@ -54,31 +106,31 @@
         </section>
 
         <!-- About Me Section -->
-        <section id="about" class="about" style="background: linear-gradient(135deg, #0f172a, #1e1b4b); color: #f8fafc;">
+        <section id="about" class="reveal delay-1 about" style="background: linear-gradient(135deg, #0f172a, #1e1b4b); color: #f8fafc;">
             <h2><i class="fas fa-user"></i> About <span class="highlight">Me</span></h2>
-            <div class="about-container reveal">
-                <div class="about-image-frame">
+            <div class="about-container">
+                <div class="about-image-frame reveal delay-2">
                     <div class="profile-card">
                         <img src="profile.png" alt="Kabilan Avatar Profile" onerror="this.src='https://via.placeholder.com/280x340/1e293b/ffffff?text=Photo+Missing'">
                     </div>
                 </div>
                 <div class="about-text">
-                    <h3>I'm K.B.KABILAN</h3>
-                    <span class="reveal delay-2">Aspiring QA Automation Engineer</span>
-                    <p>I am an aspiring Software Quality Assurance Engineer skilled in Manual and Automation Testing. I am passionate about ensuring software quality, identifying defects early, and contributing to the delivery of reliable products.
+                    <h3 class="reveal delay-3">I'm K.B.KABILAN</h3>
+                    <span class="reveal delay-4">Aspiring QA Automation Engineer</span>
+                    <p class="reveal delay-5">I am an aspiring Software Quality Assurance Engineer skilled in Manual and Automation Testing. I am passionate about ensuring software quality, identifying defects early, and contributing to the delivery of reliable products.
                         As a B.Tech graduate in Information Technology, I have a structured and analytical mindset towards QA methodologies. I am eager to apply my technical skills in a professional environment and continuously improve my expertise in automation tools.</p>
                     <div class="personal-info">
-                        <p class="reveal delay-3">Email: <span>kabilboopathi245@gmail.com</span></p>
-                        <p class="reveal delay-4">Place: <span>Chennai, India - 600106</span></p>
+                        <p class="reveal delay-6"><i class="fas fa-envelope"></i> Email: <span>kabilboopathi245@gmail.com</span></p>
+                        <p class="reveal delay-7"><i class="fas fa-map-marker-alt"></i> Place: <span>Chennai, India - 600106</span></p>
                     </div>
-                    <a href="https://drive.google.com/file/d/1UDyZTkERdts68rOd7toZX_xVPXtAKkgR/view?usp=drivesdk" class="btn" target="_blank">Resume <i class="fas fa-angle-right" style="margin-left: 5px;"></i></a>
+                    <a href="https://drive.google.com/file/d/1UDyZTkERdts68rOd7toZX_xVPXtAKkgR/view?usp=drivesdk" class="btn reveal delay-8" target="_blank">Resume <i class="fas fa-angle-right" style="margin-left: 5px;"></i></a>
 
                 </div>
             </div>
         </section>
 
         <!-- Skills Section -->
-        <section id="skills" class="skills-section">
+        <section id="skills" class="reveal delay-9 skills-section">
             <h2><i class="fas fa-laptop-code"></i> Skills & <span class="highlight">Abilities</span></h2>
             <div class="skills-grid">
                 <div class="skill-card reveal"><i class="fab fa-java" style="color: #f89820;"></i><span>Java</span></div>
@@ -95,7 +147,7 @@
         </section>
 
         <!-- Education Section -->
-        <section id="education" class="education-section">
+        <section id="education" class="reveal delay-10 education-section">
             <h2><i class="fas fa-graduation-cap"></i> My <span class="highlight">Education</span></h2>
             <div class="education-container">
                 <div class="edu-card reveal">
@@ -139,7 +191,7 @@
             <div class="projects-grid">
                 <div class="project-card reveal">
                     <h3>Automation Framework for Login Functionality</h3>
-                    <p style="text-align: justify; line-height: 1.6;">
+                    <p style="text-align: left; line-height: 1.7;">
                         Designed and implemented a robust <strong style="color: #32e013;">Selenium Automation Framework</strong> using <strong style="color: #32e013;">Java, TestNG, and Maven</strong> to validate application login functionalities. By adopting the <strong style="color: #32e013;">Page Object Model (POM)</strong> architecture, the test logic was effectively isolated from UI elements, enhancing maintainability. The framework utilizes structured locators, explicit waits for dynamic synchronization, and custom assertions to ensure flawless test execution and accurate reporting.
                     </p>
                     <div class="project-meta">
@@ -149,7 +201,7 @@
                 </div>
                 <div class="project-card reveal">
                     <h3>RFID Based Women Safety System</h3>
-                    <p style="text-align: justify; line-height: 1.6;">
+                    <p style="text-align: left; line-height: 1.7;">
                         An <strong style="color: #32e013;">RFID-Based Women Safety System</strong> is an <strong style="color: #32e013;">IoT-enabled</strong> smart security wearable designed to provide immediate protection and location tracking for women in distress or emergency situations. Instead of relying on a smartphone—which might be difficult to access during danger—this system utilizes a discreet, compact <strong style="color: #32e013;">RFID tag</strong> (embedded in a keychain, ring, or watch) and a main wearable module containing an <strong style="color: #32e013;">RFID reader, microcontroller, GPS, and GSM modules</strong>.
                     </p>
                     <div class="project-meta">
