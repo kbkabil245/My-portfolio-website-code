@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Typing Text Effect Engine
     const typingSpan = document.querySelector(".typing-text");
     if (typingSpan) {
-        const roles = ["QA Automation Engineering.", "Manual Testing.", "Automation Testing (Selenium/Java)."];
+        const roles = ["QA Automation Engineering.", "Manual Testing.", "Automation Testing (Selenium/Java).","Information Technology"];
         let roleIndex = 0, charIndex = 0, isDeleting = false;
         function typeEffect() {
             let currentRole = roles[roleIndex];
@@ -183,3 +183,63 @@ aboutBtn.style.setProperty('--mouseX', (e.clientX - rect.left) + 'px');
 aboutBtn.style.setProperty('--mouseY', (e.clientY - rect.top) + 'px');
 });
 }
+// NOTE: moveNavIndicator() is intentionally NOT defined here anymore.
+// index.html already defines the correct version of this function
+// (inline <script> right after the <nav>), which also toggles the
+// '.visible' class needed by .nav-indicator.visible { opacity: 1 } in
+// style.css. Since script.js loads AFTER that inline script, having a
+// second `function moveNavIndicator(...)` here in the global scope was
+// silently overriding the working one — the indicator's left/width got
+// set correctly, but it never became visible because 'visible' class
+// was never added. Keeping only one definition fixes the scroll highlight.
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navIndicator = document.getElementById('navIndicator');
+
+            function moveNavIndicator(activeLink) {
+                if (!navIndicator || !activeLink) return;
+                navIndicator.style.left = activeLink.offsetLeft + 'px';
+                navIndicator.style.width = activeLink.offsetWidth + 'px';
+                navIndicator.classList.add('visible');
+            }
+
+            function runScrollSpy() {
+                // Default to the first section (Home) instead of an empty
+                // string - an empty string is a substring of every link's
+                // href, so it used to match ALL links and the indicator
+                // always ended up on the last one (Contact).
+                let current = sections.length ? sections[0].getAttribute('id') : "";
+                const scrollPosition = window.scrollY || window.pageYOffset;
+                const reachedBottom = (window.innerHeight + scrollPosition) >= (document.documentElement.scrollHeight - 4);
+
+                if (reachedBottom && sections.length) {
+                    current = sections[sections.length - 1].getAttribute('id');
+                } else {
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop;
+                        if (scrollPosition >= sectionTop - 150) {
+                            current = section.getAttribute('id');
+                        }
+                    });
+                }
+
+                let activeLink = null;
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    // Exact match instead of .includes() - substring matching
+                    // was part of the same bug above.
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                        activeLink = link;
+                    }
+                });
+
+                moveNavIndicator(activeLink);
+            }
+
+            window.addEventListener('scroll', runScrollSpy);
+            window.addEventListener('resize', () => {
+                moveNavIndicator(document.querySelector('.nav-link.active'));
+            });
+            window.addEventListener('load', runScrollSpy);
+    

@@ -34,59 +34,6 @@
                     <span class="nav-indicator" id="navIndicator"></span>
                 </ul>
             </nav>
-            <script>
-
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const navIndicator = document.getElementById('navIndicator');
-
-            function moveNavIndicator(activeLink) {
-                if (!navIndicator || !activeLink) return;
-                navIndicator.style.left = activeLink.offsetLeft + 'px';
-                navIndicator.style.width = activeLink.offsetWidth + 'px';
-                navIndicator.classList.add('visible');
-            }
-
-            function runScrollSpy() {
-                // Default to the first section (Home) instead of an empty
-                // string - an empty string is a substring of every link's
-                // href, so it used to match ALL links and the indicator
-                // always ended up on the last one (Contact).
-                let current = sections.length ? sections[0].getAttribute('id') : "";
-                const scrollPosition = window.scrollY || window.pageYOffset;
-                const reachedBottom = (window.innerHeight + scrollPosition) >= (document.documentElement.scrollHeight - 4);
-
-                if (reachedBottom && sections.length) {
-                    current = sections[sections.length - 1].getAttribute('id');
-                } else {
-                    sections.forEach(section => {
-                        const sectionTop = section.offsetTop;
-                        if (scrollPosition >= sectionTop - 150) {
-                            current = section.getAttribute('id');
-                        }
-                    });
-                }
-
-                let activeLink = null;
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    // Exact match instead of .includes() - substring matching
-                    // was part of the same bug above.
-                    if (link.getAttribute('href') === '#' + current) {
-                        link.classList.add('active');
-                        activeLink = link;
-                    }
-                });
-
-                moveNavIndicator(activeLink);
-            }
-
-            window.addEventListener('scroll', runScrollSpy);
-            window.addEventListener('resize', () => {
-                moveNavIndicator(document.querySelector('.nav-link.active'));
-            });
-            window.addEventListener('load', runScrollSpy);
-         </script>
         </header>
 
         <!-- Home Section -->
@@ -94,7 +41,7 @@
             <div class="hero-content">
                 <h2>Hi There,<br>I'm <span class="highlight">K.B.KABILAN</span></h2>
                 <p class="typing-text">I am into </p>
-                <a href="#about" class="reveal-down btn glow-btn" id="aboutBtn"> <span class="inner-glow"></span> <span>More About Me <i class="fas fa-arrow-down"></i></span> </a>
+                <a href="#about" class="reveal-down btn glow-btn" id="aboutBtn"> <span class="inner-glow"></span> <span> Hire Me <i class="fas fa-arrow-down"></i></span> </a>
                 <div class="social-links reveal reveal-side delay-2">
                     <a href="https://linkedin.com/in/kabilan-k-b-802489255" target="_blank"><i class="fab fa-linkedin"></i></a>
                     <a href="https://github.com/kbkabil245" target="_blank"><i class="fab fa-github"></i></a>
@@ -116,7 +63,7 @@
                 </div>
                 <div class="about-text">
                     <h3 class="reveal delay-3">I'm K.B.KABILAN</h3>
-                    <span class="reveal delay-4">Aspiring QA Automation Engineer</span>
+                    <span class="reveal delay-4">ASPIRING QA AUTOMATION ENGINEER</span>
                     <p class="reveal delay-5">I am an aspiring Software Quality Assurance Engineer skilled in Manual and Automation Testing. I am passionate about ensuring software quality, identifying defects early, and contributing to the delivery of reliable products.
                         As a B.Tech graduate in Information Technology, I have a structured and analytical mindset towards QA methodologies. I am eager to apply my technical skills in a professional environment and continuously improve my expertise in automation tools.</p>
                     <div class="personal-info">
@@ -192,7 +139,7 @@
                 <div class="project-card reveal">
                     <h3>Automation Framework for Login Functionality</h3>
                     <p style="text-align: left; line-height: 1.7;">
-                        Designed and implemented a robust <strong style="color: #32e013;">Selenium Automation Framework</strong> using <strong style="color: #32e013;">Java, TestNG, and Maven</strong> to validate application login functionalities. By adopting the <strong style="color: #32e013;">Page Object Model (POM)</strong> architecture, the test logic was effectively isolated from UI elements, enhancing maintainability. The framework utilizes structured locators, explicit waits for dynamic synchronization, and custom assertions to ensure flawless test execution and accurate reporting.
+                        Designed and implemented a robust <strong style="color: #32e013;">Selenium Automation Framework</strong> using <strong style="color: #32e013;">Java, TestNG, and Maven</strong> to validate application login functionalities. By adopting the <strong style="color: #32e013;">Page Object Model (POM)</strong> architecture, the test logic was effectively isolated from UI elements, ensuring high-quality software delivery. The framework utilizes structured locators, explicit waits for dynamic synchronization, and custom assertions to ensure flawless test execution and accurate reporting.
                     </p>
                     <div class="project-meta">
                         <span class="project-tech">Java / Selenium / Maven</span>
